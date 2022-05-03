@@ -61,6 +61,7 @@ const secondArray = [];
 
 
 
+
 // FUNCTIONS
 function createNewElement (container) {
     posts.forEach((element) => {
@@ -98,14 +99,11 @@ function createNewElement (container) {
             </div>         
         `;
         container.append(post);
-        likedPost(post);
-    });
-};
-
-// FUNCTION LIKE
-function likedPost (post) {
-    post.querySelector('.like-button').addEventListener('click', function () {
-        event.preventDefault();
-        this.classList.toggle("like-button--liked");
+        post.querySelector('.like-button').addEventListener('click', function () {
+            event.preventDefault();
+            this.classList.add("like-button--liked");
+            secondArray.push(element.id);
+            console.log(secondArray);
+        });
     });
 };
