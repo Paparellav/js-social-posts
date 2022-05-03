@@ -3,25 +3,25 @@
 const posts = [
     {
         "id": 1,
-        "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        "content": "“Non è tanto chi sei, quanto quello che fai che ti qualifica.”",
         "media": "https://unsplash.it/600/300?image=171",
         "author": {
             "name": "Vitantonio Paparella",
-            "image": "https://unsplash.it/300/300?image=1"
+            "image": "img/paparella.jpg"
         },
         "likes": 1380,
-        "created": "2021-06-25"
+        "created": "1 Years ago"
     },
     {
         "id": 2,
-        "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
+        "content": "Se l’Arcivescovo di Costantinopoli <br> si disarcivescoviscostantinopolizzasse,<br> vi disarcivescoviscostantinopolizzereste voi<br> come si è disarcivescoviscostantinopolizzato<br> l’Arcivescovo di Costantinopoli?",
         "media": "https://unsplash.it/600/300?image=176",
         "author": {
             "name": "Carlo Lollobrigida",
-            "image": "https://unsplash.it/300/300?image=3"
+            "image": "https://preview.redd.it/8z6pbsohi5m41.jpg?auto=webp&s=94ff221fcc3d4c778b225b331da5532ccfe16678"
         },
         "likes": 120,
-        "created": "2022-02-22"
+        "created": "3 Months ago"
     },
     {
         "id": 3,
@@ -32,7 +32,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?image=10"
         },
         "likes": 800,
-        "created": "2021-03-14"
+        "created": "2 Months ago"
     },
     {
         "id": 4,
@@ -43,7 +43,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?image=7"
         },
         "likes": 275,
-        "created": "2021-01-01"
+        "created": "4 Months ago"
     },
 ];
 
@@ -52,6 +52,10 @@ const posts = [
 const postContainer = document.getElementById("container");
 createNewElement(postContainer);
 
+// **Milestone 3** - 
+// Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+const secondArray = [];
 
 
 
@@ -93,6 +97,15 @@ function createNewElement (container) {
                 </div> 
             </div>         
         `;
-        container.append(post);  
+        container.append(post);
+        likedPost(post);
+    });
+};
+
+// FUNCTION LIKE
+function likedPost (post) {
+    post.querySelector('.like-button').addEventListener('click', function () {
+        event.preventDefault();
+        this.classList.toggle("like-button--liked");
     });
 };
