@@ -57,15 +57,11 @@ createNewElement(postContainer);
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 const secondArray = [];
 
-
-
-
-
-
 // FUNCTIONS
 function createNewElement (container) {
     posts.forEach((element) => {
         const post = document.createElement("div");
+        let counterLikes = element.likes; 
         post.classList.add("post");
         post.innerHTML = 
         `
@@ -93,17 +89,21 @@ function createNewElement (container) {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                        Piace a <b id="like-counter-1" class="js-likes-counter-${element.id}">${counterLikes}</b> persone
                     </div>
                 </div> 
             </div>         
         `;
         container.append(post);
-        post.querySelector('.like-button').addEventListener('click', function () {
+        
+        post.querySelector('.like-button').addEventListener('click', function (event) {
+            counterLikes++;
             event.preventDefault();
             this.classList.add("like-button--liked");
             secondArray.push(element.id);
             console.log(secondArray);
+            document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
+            console.log(counterLikes);
         });
     });
 };
