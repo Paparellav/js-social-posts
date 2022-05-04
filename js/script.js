@@ -97,13 +97,17 @@ function createNewElement (container) {
         container.append(post);
         
         post.querySelector('.like-button').addEventListener('click', function (event) {
-            counterLikes++;
             event.preventDefault();
-            this.classList.add("like-button--liked");
-            secondArray.push(element.id);
-            console.log(secondArray);
-            document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
-            console.log(counterLikes);
+            if (!secondArray.includes(element.id)) {
+                counterLikes++;
+                document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
+                this.classList.add("like-button--liked");
+                secondArray.push(element.id);
+            } else {
+                counterLikes--;
+                document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
+                this.classList.remove("like-button--liked");
+            }
         });
     });
 };
