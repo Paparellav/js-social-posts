@@ -10,7 +10,7 @@ const posts = [
             "image": "img/paparella.jpg"
         },
         "likes": 1380,
-        "created": "1 Years ago"
+        "created": "2021-06-25"
     },
     {
         "id": 2,
@@ -21,7 +21,7 @@ const posts = [
             "image": "https://preview.redd.it/8z6pbsohi5m41.jpg?auto=webp&s=94ff221fcc3d4c778b225b331da5532ccfe16678"
         },
         "likes": 120,
-        "created": "3 Months ago"
+        "created": "2022-05-14"
     },
     {
         "id": 3,
@@ -32,7 +32,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?image=10"
         },
         "likes": 800,
-        "created": "2 Months ago"
+        "created": "2022-02-22"
     },
     {
         "id": 4,
@@ -40,10 +40,10 @@ const posts = [
         "media": "https://unsplash.it/600/300?image=173",
         "author": {
             "name": "Sara Genuardi",
-            "image": "https://unsplash.it/300/300?image=7"
+            "image": null,
         },
         "likes": 275,
-        "created": "4 Months ago"
+        "created": "2022-01-01"
     },
 ];
 
@@ -67,12 +67,12 @@ function createNewElement (container) {
         `
             <div class="post__header">
                 <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${element.author.image}" alt="${element.author.name}">                    
+                    <div class="post-meta__icon"> 
+                        ${(element.author.image) ?  createAuthorImg(element.author) : placeHolderImg(element.author.name)}
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${element.author.name}</div>
-                        <div class="post-meta__time">${element.created}</div>
+                        <div class="post-meta__time">${formatDate(element.created)}</div>
                     </div>                    
                 </div>
             </div>
@@ -103,11 +103,43 @@ function createNewElement (container) {
                 document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
                 this.classList.add("like-button--liked");
                 secondArray.push(element.id);
+                console.log(secondArray);
             } else {
                 counterLikes--;
                 document.querySelector(`.js-likes-counter-${element.id}`).innerHTML = counterLikes;
                 this.classList.remove("like-button--liked");
+                const idIndexInLikedPosts = secondArray.indexOf(element.id);
+                secondArray.splice(idIndexInLikedPosts, 1)
+                console.log(secondArray);
             }
         });
     });
 };
+
+function formatDate (firstDate) {
+    const italianDate = firstDate.split("-").reverse().join("/");
+    console.log(italianDate);
+    return italianDate;
+};
+
+function createAuthorImg (object) {
+    const authorImg = `<img class="profile-pic" src="${object.image}" alt="${object.name}">`;
+    return authorImg;
+}
+
+function placeHolderImg (name) {
+    const nameSplitted = name.split(" ");
+    let initials = "";
+    nameSplitted.forEach(name => {
+        const firstLetter = name[0];
+        initials += firstLetter;
+    });
+
+    const placeHolderName = 
+    `
+    <div class="profile-pic-default">
+        <span>${initials}</span>                    
+    </div>
+    `;
+    return placeHolderName;
+}
